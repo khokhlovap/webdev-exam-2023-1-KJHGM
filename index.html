@@ -40,16 +40,19 @@
 
       <main>
         <section class="container py-5">
-          <div class="input-group">
-            <input type="search" class="form-control" placeholder="Введите маршрут" aria-label="Search">
-            <button class="btn btn-outline-secondary" type="submit" id="button-search">Поиск</button>
-          </div>
-          <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-              Выберите основный объект маршрута
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-            </ul>
+          <div class="container text-center row">
+
+            <div class="input-group col pt-md-0">
+              <input type="search" class="form-control" placeholder="Введите маршрут" aria-label="Search">
+              <button class="btn btn-outline-secondary" type="submit" id="button-search">Поиск</button>
+            </div>
+            <div class="dropdown col pe-0">
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                Выберите основный объект маршрута
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              </ul>
+            </div>
           </div>
           <table id="routes-table" class="table">
             <thead>
