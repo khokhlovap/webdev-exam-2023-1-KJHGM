@@ -107,6 +107,37 @@ document.getElementById('button-search').addEventListener('click', function () {
     }
 });
 
+function routesDropdown() {
+    let dropdown = document.querySelector('.dropdown-menu');
+    let xhr = new XMLHttpRequest();
+    let url = 'http://exam-2023-1-api.std-900.ist.mospolytech.ru/api/routes?api_key=d8a17ec0-cc0e-4936-97d0-47b70d19ffc0';
+    xhr.open('GET', url);
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+            let data = JSON.parse(xhr.responseText);
+            let items = [];
+            data.forEach(function (item) {
+                let parts = item.mainObject.split('-').map(part => part.trim());
+                parts.forEach(part => {
+                    if (items.indexOf(part) === -1) {
+                        items.push(part);
+                        let listItem = document.createElement('li');
+                        let link = document.createElement('a');
+                        link.textContent = part;
+                        listItem.appendChild(link);
+                        dropdown.appendChild(listItem);
+                    }
+                });
+            });
+        } else {
+            console.error('Не удалось получить данные: ' + xhr.status);
+        }
+    };
+    xhr.send();
+}
+
+
+
 function tableGid(data) {
     let table = document.getElementById('gid-table');
     
@@ -132,6 +163,24 @@ function tableGid(data) {
 }
 
 
+document.querySelector('.dropdown-menu').addEventListener('click', function (event) {
+    if (event.target.tagName === 'A') {
+        let filterValue = event.target.textContent;
+        console.log(filterValue);
+        table = document.getElementById('routes-table');
+        rows = table.getElementsByTagName('tr');
+
+        for (let row of rows) {
+            let cells = row.cells;
+            let cellValue = cells[cells.length - 2].textContent;
+            if (cellValue.includes(filterValue)) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        }
+    }
+});
 
 const tableHeader2 = document.getElementById('gid-table').getElementsByTagName('thead')[0].innerHTML;
 function getTableDataGid(route_id) {
@@ -158,6 +207,9 @@ function getTableDataGid(route_id) {
 
 window.onload = function () {
     getTableDataRoutes();
+    routesDropdown();
+
+
   
 
 };
