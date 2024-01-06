@@ -55,6 +55,12 @@ function tableRoutes(data) {
         cell3.textContent = item.mainObject;
         let selectBtn = document.createElement('button');
         selectBtn.textContent = 'Выбрать';
+        selectBtn.onclick = function () {
+            getTableDataGid(item.id);
+            idRoute = item.id;
+            console.log(idRoute);
+        };
+
         let cell4 = row.insertCell(3);
         cell4.appendChild(selectBtn);
     });
@@ -101,6 +107,57 @@ document.getElementById('button-search').addEventListener('click', function () {
     }
 });
 
+function tableGid(data) {
+    let table = document.getElementById('gid-table');
+    
+    data.forEach(function (item) {
+        let row = table.insertRow();
+        let cell1 = row.insertCell(0);
+        let cell2 = row.insertCell(1);
+        let cell3 = row.insertCell(2);
+        let cell4 = row.insertCell(3);
+        let cell5 = row.insertCell(4);
+        cell2.textContent = item.name;
+        cell3.textContent = item.language;
+        cell4.textContent = item.workExperience;
+        cell5.textContent = item.pricePerHour;
+
+        let selectBtn2 = document.createElement('button');
+        selectBtn2.textContent = 'Выбрать';
+        selectBtn2.onclick = function () {
+        };
+        let cell6 = row.insertCell(5); 
+        cell6.appendChild(selectBtn2);
+    });
+}
+
+
+
+const tableHeader2 = document.getElementById('gid-table').getElementsByTagName('thead')[0].innerHTML;
+function getTableDataGid(route_id) {
+    let table = document.getElementById('gid-table');
+    let tbody = document.getElementById('table-body-gid');
+    tbody.innerHTML = ''; 
+   
+    table.getElementsByTagName('thead')[0].innerHTML = tableHeader2;
+    
+    let xhr = new XMLHttpRequest();
+    let url = `http://exam-2023-1-api.std-900.ist.mospolytech.ru/api/routes/${route_id}/guides?api_key=d8a17ec0-cc0e-4936-97d0-47b70d19ffc0`;
+    xhr.open('GET', url);
+    xhr.responseType = 'json';
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+            let data = xhr.response;
+            tableGid(data);
+        } else {
+            console.error('Не удалось получить данные:  ' + xhr.status);
+        }
+    };
+    xhr.send();
+}
+
 window.onload = function () {
     getTableDataRoutes();
+  
+
 };
