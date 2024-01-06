@@ -162,26 +162,6 @@ function tableGid(data) {
     });
 }
 
-
-document.querySelector('.dropdown-menu').addEventListener('click', function (event) {
-    if (event.target.tagName === 'A') {
-        let filterValue = event.target.textContent;
-        console.log(filterValue);
-        table = document.getElementById('routes-table');
-        rows = table.getElementsByTagName('tr');
-
-        for (let row of rows) {
-            let cells = row.cells;
-            let cellValue = cells[cells.length - 2].textContent;
-            if (cellValue.includes(filterValue)) {
-                row.style.display = '';
-            } else {
-                row.style.display = 'none';
-            }
-        }
-    }
-});
-
 const tableHeader2 = document.getElementById('gid-table').getElementsByTagName('thead')[0].innerHTML;
 function getTableDataGid(route_id) {
     let table = document.getElementById('gid-table');
