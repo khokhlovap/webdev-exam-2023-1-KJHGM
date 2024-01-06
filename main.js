@@ -1,6 +1,32 @@
+const pageSize = 5;
+let currentPage = 1; 
+const tableHeader = document.getElementById('routes-table').getElementsByTagName('thead')[0].innerHTML;
+
 function tableRoutes(data) {
     let table = document.getElementById('routes-table');
-    data.forEach(function (item) {
+    let tbody = document.getElementById('table-body-routes');
+    tbody.innerHTML = ''; 
+    table.getElementsByTagName('thead')[0].innerHTML = tableHeader;
+
+    const totalPages = Math.ceil(data.length / pageSize);
+    let pagination = document.getElementById('pagination');
+    pagination.innerHTML = '';
+    for (let i = 1; i <= totalPages; i++) {
+        let li = document.createElement('li');
+        let btn = document.createElement('button');
+        btn.textContent = i;
+        btn.addEventListener('click', function () {
+            currentPage = i;
+            updateTable(data);
+        });
+        li.appendChild(btn);
+        pagination.appendChild(li);
+    }
+
+    const start = (currentPage - 1) * pageSize;
+    const end = currentPage * pageSize;
+
+    data.slice(start, end).forEach(function (item) {
         let row = table.insertRow();
         let cell1 = row.insertCell(0);
         let cell2 = row.insertCell(1);
@@ -13,6 +39,10 @@ function tableRoutes(data) {
         let cell4 = row.insertCell(3);
         cell4.appendChild(selectBtn);
     });
+}
+
+function updateTable(data) {
+    tableRoutes(data);
 }
 
 function getTableDataRoutes() {
