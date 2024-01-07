@@ -1,13 +1,13 @@
 const pageSize = 10;
-let currentPage = 1; 
+let currentPage = 1;
 const maxPages = 3;
 const tableHeader = document.getElementById('routes-table').getElementsByTagName('thead')[0].innerHTML;
 
 function tableRoutes(data) {
     let table = document.getElementById('routes-table');
     let tbody = document.getElementById('table-body-routes');
-    tbody.innerHTML = ''; 
-   
+    tbody.innerHTML = '';
+
     table.getElementsByTagName('thead')[0].innerHTML = tableHeader;
     const totalPages = Math.ceil(data.length / pageSize);
     let pagination = document.getElementById('pagination');
@@ -21,7 +21,7 @@ function tableRoutes(data) {
         endPage = Math.min(totalPages, startPage + maxPages - 1);
 
         if (endPage - startPage < maxPages - 1) {
-        startPage = endPage - maxPages + 1;
+            startPage = endPage - maxPages + 1;
         }
     }
 
@@ -29,9 +29,12 @@ function tableRoutes(data) {
         let previousBtn = document.createElement('button');
         previousBtn.textContent = 'Назад';
         previousBtn.classList.add('page-link');
+        previousBtn.id="scrollPrevious";
         previousBtn.addEventListener('click', function () {
-        currentPage--;
-        updateTable(data);
+            currentPage--;
+            updateTable(data);
+            let scrollheader = document.getElementById('list routers');
+            scrollheader.scrollIntoView({ behavior: 'smooth', block: 'start' });
         });
         pagination.appendChild(previousBtn);
     }
@@ -40,28 +43,35 @@ function tableRoutes(data) {
         let li = document.createElement('li');
         let btn = document.createElement('button');
         btn.classList.add('page-link');
+        btn.id="scrollBtn";
         btn.textContent = i;
         if (i === currentPage) {
-          btn.disabled = true;
+            btn.disabled = true;
         }
         btn.addEventListener('click', function () {
-          currentPage = i;
-          updateTable(data);
+            currentPage = i;
+            updateTable(data);
+            let scrollheader = document.getElementById('list routers');
+            scrollheader.scrollIntoView({ behavior: 'smooth', block: 'start' });
         });
         li.appendChild(btn);
         pagination.appendChild(li);
-      }
-    
-      if (currentPage < totalPages) {
+    }
+
+    if (currentPage < totalPages) {
         let nextBtn = document.createElement('button');
         nextBtn.textContent = 'Вперед';
         nextBtn.classList.add('page-link');
+        nextBtn.id="scrollNext";
         nextBtn.addEventListener('click', function () {
-          currentPage++;
-          updateTable(data);
+            currentPage++;
+            updateTable(data);
+            let scrollheader = document.getElementById('list routers');
+            scrollheader.scrollIntoView({ behavior: 'smooth', block: 'start' });
         });
         pagination.appendChild(nextBtn);
-      }
+        
+    }
 
     const start = (currentPage - 1) * pageSize;
     const end = currentPage * pageSize;
@@ -81,7 +91,7 @@ function tableRoutes(data) {
             document.getElementById('showRoutes').value = item.name;
             getTableDataGid(item.id);
             idRoute = item.id;
-            console.log(idRoute); 
+            console.log(idRoute);
         };
 
         let cell4 = row.insertCell(3);
@@ -91,7 +101,7 @@ function tableRoutes(data) {
 
 function updateTable(data) {
     tableRoutes(data);
-    
+
 }
 
 function getTableDataRoutes() {
@@ -146,12 +156,12 @@ function routesDropdown() {
             data.forEach(function (item) {
                 let parts = item.mainObject.split('- ').map(part => part.trim());
                 parts.forEach(part => {
-                  let option = document.createElement('option');
-                  option.value = item.id;
-                  option.textContent = part; 
-                  selectRoutes.appendChild(option);
+                    let option = document.createElement('option');
+                    option.value = item.id;
+                    option.textContent = part;
+                    selectRoutes.appendChild(option);
                 });
-              });
+            });
         } else {
             console.error('Не удалось получить данные: ' + xhr.status);
         }
@@ -178,7 +188,7 @@ function tableGid(data) {
         selectBtn2.onclick = function () {
             document.getElementById('showNameGid').value = item.name;
         };
-        let cell6 = row.insertCell(5); 
+        let cell6 = row.insertCell(5);
         cell6.appendChild(selectBtn2);
     });
 }
@@ -186,11 +196,8 @@ function tableGid(data) {
 const tableHeader2 = document.getElementById('gid-table').getElementsByTagName('thead')[0].innerHTML;
 function getTableDataGid(route_id) {
     let table = document.getElementById('gid-table');
-    let tbody = document.getElementById('table-body-gid');
-    tbody.innerHTML = ''; 
-   
     table.getElementsByTagName('thead')[0].innerHTML = tableHeader2;
-    
+
     let xhr = new XMLHttpRequest();
     let url = `http://exam-2023-1-api.std-900.ist.mospolytech.ru/api/routes/${route_id}/guides?api_key=d8a17ec0-cc0e-4936-97d0-47b70d19ffc0`;
     xhr.open('GET', url);
@@ -209,8 +216,4 @@ function getTableDataGid(route_id) {
 window.onload = function () {
     getTableDataRoutes();
     routesDropdown();
-
-
-  
-
 };
