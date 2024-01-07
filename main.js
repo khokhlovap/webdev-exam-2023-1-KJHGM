@@ -108,34 +108,65 @@ document.getElementById('button-search').addEventListener('click', function () {
     }
 });
 
+// function routesDropdown() {
+//     let dropdown = document.querySelector('.dropdown-menu');
+//     let xhr = new XMLHttpRequest();
+//     let url = 'http://exam-2023-1-api.std-900.ist.mospolytech.ru/api/routes?api_key=d8a17ec0-cc0e-4936-97d0-47b70d19ffc0';
+//     xhr.open('GET', url);
+//     xhr.onload = function () {
+//         if (xhr.status === 200) {
+//             let data = JSON.parse(xhr.responseText);
+//             let items = [];
+
+
+//             let notSelectedItem = document.createElement('li');
+//             let notSelectedLink = document.createElement('a');
+//             notSelectedLink.textContent = "Не выбрано";
+//             notSelectedItem.appendChild(notSelectedLink);
+//             dropdown.appendChild(notSelectedItem);
+
+//             data.forEach(function (item) {
+//                 let parts = item.mainObject.split('-').map(part => part.trim());
+//                 parts.forEach(part => {
+//                     if (items.indexOf(part) === -1) {
+//                         items.push(part);
+//                         let listItem = document.createElement('li');
+//                         let link = document.createElement('a');
+//                         link.textContent = part;
+//                         listItem.appendChild(link);
+//                         dropdown.appendChild(listItem);
+//                     }
+//                 });
+//             });
+//         } else {
+//             console.error('Не удалось получить данные: ' + xhr.status);
+//         }
+//     };
+//     xhr.send();
+// }
+
 function routesDropdown() {
-    let dropdown = document.querySelector('.dropdown-menu');
+    let dropdown = document.getElementById('selectRoutes');
     let xhr = new XMLHttpRequest();
     let url = 'http://exam-2023-1-api.std-900.ist.mospolytech.ru/api/routes?api_key=d8a17ec0-cc0e-4936-97d0-47b70d19ffc0';
     xhr.open('GET', url);
     xhr.onload = function () {
         if (xhr.status === 200) {
             let data = JSON.parse(xhr.responseText);
-            let items = [];
-            let notChoseItem = document.createElement('li');
-            let notChoseLink = document.createElement('a');
-            notChoseLink.textContent = "Не выбрано";
-            notChoseItem.appendChild(notChoseLink);
-            dropdown.appendChild(notChoseItem);
-
+            dropdown.innerHTML = '';
+            let notSelectedOption = document.createElement('option');
+            notSelectedOption.value = "";
+            notSelectedOption.textContent = "Не выбрано";
+            selectRoutes.appendChild(notSelectedOption);
             data.forEach(function (item) {
-                let parts = item.mainObject.split('-').map(part => part.trim());
+                let parts = item.mainObject.split('- ').map(part => part.trim());
                 parts.forEach(part => {
-                    if (items.indexOf(part) === -1) {
-                        items.push(part);
-                        let listItem = document.createElement('li');
-                        let link = document.createElement('a');
-                        link.textContent = part;
-                        listItem.appendChild(link);
-                        dropdown.appendChild(listItem);
-                    }
+                  let option = document.createElement('option');
+                  option.value = item.id;
+                  option.textContent = part; 
+                  selectRoutes.appendChild(option);
                 });
-            });
+              });
         } else {
             console.error('Не удалось получить данные: ' + xhr.status);
         }
@@ -143,11 +174,8 @@ function routesDropdown() {
     xhr.send();
 }
 
-
-
 function tableGid(data) {
     let table = document.getElementById('gid-table');
-    
     data.forEach(function (item) {
         let row = table.insertRow();
         let cell1 = row.insertCell(0);
