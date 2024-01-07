@@ -30,7 +30,7 @@
               <a class="nav-link" href="#popular routes">Популярные маршруты</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Технологии</a>
+              <a class="nav-link" href="list routers">Список пешеходных маршрутов</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">Личный кабинет</a>
@@ -49,6 +49,9 @@
             <p class="text-uppercase fs-5 fw-bold text-danger .text-darken-lg">Открой Москву с нами: выбери
               незабываемый маршрут</p>
             <p>Предлагаем уникальные экскурсии по историческим локациям столицы.</p>
+             
+                <button class="btn btn-primary .btn-darken-xl text-white fw-bold" type="button">Оформить заказ</button>
+              
           </div>
           <div class="col-md-6 text-center">
             <img src="picture1.jpg" class="img-fluid rounded" width="500" height="300" alt="Изображение">
@@ -146,7 +149,7 @@
     </section>
 
     <section class="container py-5">
-      <h2 class="fw-bold text-center text-uppercase">Список пешеходных маршрутов</h2>
+      <h2 id="list routers" class="fw-bold text-center text-uppercase">Список пешеходных маршрутов</h2>
       <div class="container text-center row pe-0 py-3">
         <div class="input-group col ps-0">
           <input type="search" class="form-control" id="search-input" placeholder="Введите маршрут" aria-label="Search">
@@ -172,9 +175,6 @@
         <ul id="pagination" class="pagination justify-content-center g-2"></ul>
       </nav>
     </section>
-
-
-
 
     <section id="gid" class="bg-warning .bg-lighten-md">
       <div class="container py-5">
@@ -210,6 +210,108 @@
       </div>
     </section>
 
+    <div class="modal fade" id="modal" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Оформление заказа</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+  
+          <div class="modal-body">
+            <div class="row mb-3">
+              <div class="col-3">
+                <label class="form-label">Выбранный маршрут</label>
+              </div>
+              <div class="col-9">
+                <input type="text" class="form-control" id="showRoutes" disabled>
+              </div>
+            </div>
+  
+            <div class="row mb-3">
+              <div class="col-3">
+                <label class="form-label">ФИО выбранного гида</label>
+              </div>
+              <div class="col-9">
+                <input type="text" class="form-control" id="showNameGid" value="Название маршрута" disabled>
+              </div>
+            </div>
+  
+            <div class="row mb-3">
+              <div class="col-3">
+                <label class="form-label">Выберите дату</label>
+              </div>
+              <div class="col-9">
+                <input type="date" class="form-control" id="date" name="data" required>
+              </div>
+            </div>
+  
+            <div class="row mb-3">
+              <div class="col-3">
+                <label class="form-label">Выберите время</label>
+              </div>
+              <div class="col-9">
+                <input type="time" class="form-control" id="time" name="time" min="09:00" max="23:00" step="1800" value="12:00" required>
+              </div>
+            </div>
+  
+            <div class="row mb-3">
+              <div class="col-3">
+                <label class="form-label">Длительность экскурсии (час)</label>
+              </div>
+              <div class="col-9">
+                <select class="form-control" id="list" name="list">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                </select>
+              </div>
+            </div>
+  
+            <div class="row mb-3">
+              <div class="col-3">
+                <label class="form-label">Количество человек в группе</label>
+              </div>
+              <div class="col-9">
+                <input type="number" class="form-control" id="person" name="person" min="1" max="20" required>
+              </div>
+            </div>
+  
+            <div class="row mb-3">
+              <div class="col-3">
+                <label class="form-label">Использовать скидку для пенсионеров</label>
+              </div>
+              <div class="col-9">
+                <input type="checkbox" id="salePensioners" name="salePensioners" required>
+              </div>
+            </div>
+  
+            <div class="row mb-3">
+              <div class="col-3">
+                <label class="form-label">Сопровождение сурдопереводчика</label>
+              </div>
+              <div class="col-9">
+                <input type="checkbox" id="saleSurdo" name="saleSurdo" required>
+              </div>
+            </div>
+  
+            <div class="row mb-3">
+              <div class="col-3">
+                <label class="form-label">Расчет стоимости</label>
+              </div>
+              <div class="col-9">
+                <input type="text" class="form-control" id="price" name="price" disabled>
+              </div>
+            </div>
+          </div>
+  
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отменить</button>
+            <button type="button" class="btn btn-primary" id="create" data-bs-dismiss="modal">Отправить</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </main>
   <script src="main.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
