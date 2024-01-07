@@ -96,9 +96,10 @@
               <img src="2.jpg" class="card-img-top" alt="ВДНХ">
               <div class="card-body">
                 <h5 class="card-title text-danger .text-darken-lg fw-bold">ВДНХ: побег от реальности</h5>
-                <p class="card-text">Выставка достижений народного хозяйства, ныне Всероссийский выставочный центр, является одним из
+                <p class="card-text">Выставка достижений народного хозяйства, ныне Всероссийский выставочный центр,
+                  является одним из
                   крупнейших экспозиционных пространств во всем мире. Каждый найдет для себя занятие по душе.</p>
-                
+
               </div>
             </div>
           </div>
@@ -132,9 +133,10 @@
               <img src="5.jpg" class="card-img-top" alt="Лосиный остров">
               <div class="card-body">
                 <h5 class="card-title text-danger .text-darken-lg fw-bold">Тропы «Лосиного острова»</h5>
-                <p class="card-text">Продолжаем открывать новые и необычные места в периметре родного города. И одним 
-                  из таких открытий вполне может стать национальный парк «Лосиный остров», куда можно добраться на 
-                  автобусе от станции метро «ВДНХ» или на поезде по МЦК. Вход в парк бесплатный, а за дополнительную плату 
+                <p class="card-text">Продолжаем открывать новые и необычные места в периметре родного города. И одним
+                  из таких открытий вполне может стать национальный парк «Лосиный остров», куда можно добраться на
+                  автобусе от станции метро «ВДНХ» или на поезде по МЦК. Вход в парк бесплатный, а за дополнительную
+                  плату
                   можно посетить экскурсии и пообщаться с животными.</p>
               </div>
             </div>
@@ -144,20 +146,15 @@
     </section>
 
     <section class="container py-5">
-      <div class="container text-center row pe-0">
+      <h2 class="fw-bold text-center text-uppercase">Список пешеходных маршрутов</h2>
+      <div class="container text-center row pe-0 py-3">
         <div class="input-group col ps-0">
           <input type="search" class="form-control" id="search-input" placeholder="Введите маршрут" aria-label="Search">
           <button class="btn btn-outline-secondary" type="submit" id="button-search">Поиск</button>
         </div>
-        <!-- <div class="dropdown col pe-0 d-flex justify-content-end">
-          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
-            data-bs-toggle="dropdown" aria-expanded="false">
-            Выберите основный объект маршрута
-          </button>
-          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-          </ul>
-        </div> -->
-        <select id="selectRoutes" class="form-select col pe-0 d-flex justify-content-end" aria-label="Default select example"></select> 
+        <div class="col pe-0 d-flex justify-content-end">
+          <select id="selectRoutes" class="form-select" aria-label="Default select example"></select>
+        </div>
       </div>
       <table id="routes-table" class="table">
         <thead>
@@ -177,30 +174,40 @@
     </section>
 
 
-    <section id="gid" class="container py-5">
-      <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2"
-          data-bs-toggle="dropdown" aria-expanded="false">
-          Выберите язык
-        </button>
-        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-        </ul>
-      </div>
 
-      <table id="gid-table" class="table">
-        <thead>
-          <tr>
-            <th scope="col">фото</th>
-            <th scope="col">ФИО</th>
-            <th scope="col">Языки, которыми владеет гид</th>
-            <th scope="col">Опыт работы</th>
-            <th scope="col">Стоимость экскурсионного обслуживания (рублей в час)</th>
-            <th scope="col"></th>
-          </tr>
-        </thead>
-        <tbody id="table-body-gid">
-        </tbody>
-      </table>
+
+    <section id="gid" class="bg-warning .bg-lighten-md">
+      <div class="container py-5">
+        <h2>Доступные гиды по маршруту</h2><input id="nameRoute" type="text" class="form-control" disabled>
+        <div class="row g-3 needs-validation d-flex justify-content-end py-3">
+          <div class="col-md-6">
+            <label class="form-label">Выберите язык гида</label>
+            <select id="selectLanguage" class="form-select"  aria-label="Default select example"></select>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Опыт работы</label>
+            <div class="input-group mb-3">
+              <input type="text" class="form-control" placeholder="от" aria-label="Username">
+              <input type="text" class="form-control" placeholder="до" aria-label="Server">
+            </div>
+          </div>
+        </div>
+
+        <table id="gid-table" class="table">
+          <thead>
+            <tr>
+              <th scope="col">фото</th>
+              <th scope="col">ФИО</th>
+              <th scope="col">Языки, которыми владеет гид</th>
+              <th scope="col">Опыт работы</th>
+              <th scope="col">Стоимость экскурсионного обслуживания (рублей в час)</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody id="table-body-gid">
+          </tbody>
+        </table>
+      </div>
     </section>
 
   </main>

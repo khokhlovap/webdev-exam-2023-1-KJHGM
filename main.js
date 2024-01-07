@@ -56,10 +56,10 @@ function tableRoutes(data) {
         let selectBtn = document.createElement('button');
         selectBtn.textContent = 'Выбрать';
         selectBtn.onclick = function () {
-            
+            document.getElementById('nameRoute').value = item.name;
             getTableDataGid(item.id);
             idRoute = item.id;
-            console.log(idRoute);
+            console.log(idRoute); 
         };
 
         let cell4 = row.insertCell(3);
@@ -107,43 +107,6 @@ document.getElementById('button-search').addEventListener('click', function () {
         }
     }
 });
-
-// function routesDropdown() {
-//     let dropdown = document.querySelector('.dropdown-menu');
-//     let xhr = new XMLHttpRequest();
-//     let url = 'http://exam-2023-1-api.std-900.ist.mospolytech.ru/api/routes?api_key=d8a17ec0-cc0e-4936-97d0-47b70d19ffc0';
-//     xhr.open('GET', url);
-//     xhr.onload = function () {
-//         if (xhr.status === 200) {
-//             let data = JSON.parse(xhr.responseText);
-//             let items = [];
-
-
-//             let notSelectedItem = document.createElement('li');
-//             let notSelectedLink = document.createElement('a');
-//             notSelectedLink.textContent = "Не выбрано";
-//             notSelectedItem.appendChild(notSelectedLink);
-//             dropdown.appendChild(notSelectedItem);
-
-//             data.forEach(function (item) {
-//                 let parts = item.mainObject.split('-').map(part => part.trim());
-//                 parts.forEach(part => {
-//                     if (items.indexOf(part) === -1) {
-//                         items.push(part);
-//                         let listItem = document.createElement('li');
-//                         let link = document.createElement('a');
-//                         link.textContent = part;
-//                         listItem.appendChild(link);
-//                         dropdown.appendChild(listItem);
-//                     }
-//                 });
-//             });
-//         } else {
-//             console.error('Не удалось получить данные: ' + xhr.status);
-//         }
-//     };
-//     xhr.send();
-// }
 
 function routesDropdown() {
     let dropdown = document.getElementById('selectRoutes');
