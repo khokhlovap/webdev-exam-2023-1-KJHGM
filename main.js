@@ -1,23 +1,6 @@
-// function tableRoutes(data) {
-//     let table = document.getElementById('routes-table');
-//     data.forEach(function (item) {
-//         let row = table.insertRow();
-//         let cell1 = row.insertCell(0);
-//         let cell2 = row.insertCell(1);
-//         let cell3 = row.insertCell(2);
-//         cell1.textContent = item.name;
-//         cell2.textContent = item.description;
-//         cell3.textContent = item.mainObject;
-//         let selectBtn = document.createElement('button');
-//         selectBtn.textContent = 'Выбрать';
-//         let cell4 = row.insertCell(3);
-//         cell4.appendChild(selectBtn);
-//     });
-// }
-
-
-const pageSize = 5;
+const pageSize = 10;
 let currentPage = 1; 
+const maxPages = 3;
 const tableHeader = document.getElementById('routes-table').getElementsByTagName('thead')[0].innerHTML;
 
 function tableRoutes(data) {
@@ -26,21 +9,59 @@ function tableRoutes(data) {
     tbody.innerHTML = ''; 
    
     table.getElementsByTagName('thead')[0].innerHTML = tableHeader;
-
     const totalPages = Math.ceil(data.length / pageSize);
     let pagination = document.getElementById('pagination');
     pagination.innerHTML = '';
-    for (let i = 1; i <= totalPages; i++) {
+
+    let startPage = 1;
+    let endPage = totalPages;
+
+    if (totalPages > maxPages) {
+        startPage = Math.max(1, currentPage - Math.floor(maxPages / 2));
+        endPage = Math.min(totalPages, startPage + maxPages - 1);
+
+        if (endPage - startPage < maxPages - 1) {
+        startPage = endPage - maxPages + 1;
+        }
+    }
+
+    if (currentPage > 1) {
+        let previousBtn = document.createElement('button');
+        previousBtn.textContent = 'Назад';
+        previousBtn.classList.add('page-link');
+        previousBtn.addEventListener('click', function () {
+        currentPage--;
+        updateTable(data);
+        });
+        pagination.appendChild(previousBtn);
+    }
+
+    for (let i = startPage; i <= endPage; i++) {
         let li = document.createElement('li');
         let btn = document.createElement('button');
+        btn.classList.add('page-link');
         btn.textContent = i;
+        if (i === currentPage) {
+          btn.disabled = true;
+        }
         btn.addEventListener('click', function () {
-            currentPage = i;
-            updateTable(data);
+          currentPage = i;
+          updateTable(data);
         });
         li.appendChild(btn);
         pagination.appendChild(li);
-    }
+      }
+    
+      if (currentPage < totalPages) {
+        let nextBtn = document.createElement('button');
+        nextBtn.textContent = 'Вперед';
+        nextBtn.classList.add('page-link');
+        nextBtn.addEventListener('click', function () {
+          currentPage++;
+          updateTable(data);
+        });
+        pagination.appendChild(nextBtn);
+      }
 
     const start = (currentPage - 1) * pageSize;
     const end = currentPage * pageSize;
