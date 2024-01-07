@@ -30,7 +30,7 @@
               <a class="nav-link" href="#popular routes">Популярные маршруты</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="list routers">Список пешеходных маршрутов</a>
+              <a class="nav-link" href="#list routers">Список пешеходных маршрутов</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">Личный кабинет</a>
@@ -178,7 +178,7 @@
 
     <section id="gid" class="bg-warning .bg-lighten-md">
       <div class="container py-5">
-        <h2>Доступные гиды по маршруту</h2><input id="nameRoute" type="text" class="form-control" disabled>
+        <h2 class="fw-bold text-center text-uppercase">Доступные гиды по маршруту</h2><input id="nameRoute" type="text" class="form-control fs-4 text-center text-uppercase" disabled>
         <div class="row g-3 needs-validation d-flex justify-content-end py-3">
           <div class="col-md-6">
             <label class="form-label">Выберите язык гида</label>
@@ -224,7 +224,7 @@
                 <label class="form-label">Выбранный маршрут</label>
               </div>
               <div class="col-9">
-                <input type="text" class="form-control" id="showRoutes" disabled>
+                <input type="text" class="form-control" value="Маршрут не выбран" id="showRoutes" disabled>
               </div>
             </div>
   
@@ -233,7 +233,7 @@
                 <label class="form-label">ФИО выбранного гида</label>
               </div>
               <div class="col-9">
-                <input type="text" class="form-control" id="showNameGid" value="Название маршрута" disabled>
+                <input type="text" class="form-control" id="showNameGid" value="Гид не выбран" disabled>
               </div>
             </div>
   
@@ -307,7 +307,7 @@
   
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отменить</button>
-            <button type="button" class="btn btn-primary" id="create" data-bs-dismiss="modal">Отправить</button>
+            <button type="button" class="btn btn-primary .btn-darken-xl" id="create" data-bs-dismiss="modal">Отправить</button>
           </div>
         </div>
       </div>

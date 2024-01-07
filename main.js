@@ -57,6 +57,7 @@ function tableRoutes(data) {
         selectBtn.textContent = 'Выбрать';
         selectBtn.onclick = function () {
             document.getElementById('nameRoute').value = item.name;
+            document.getElementById('showRoutes').value = item.name;
             getTableDataGid(item.id);
             idRoute = item.id;
             console.log(idRoute); 
@@ -154,6 +155,7 @@ function tableGid(data) {
         let selectBtn2 = document.createElement('button');
         selectBtn2.textContent = 'Выбрать';
         selectBtn2.onclick = function () {
+            document.getElementById('showNameGid').value = item.name;
         };
         let cell6 = row.insertCell(5); 
         cell6.appendChild(selectBtn2);
