@@ -46,7 +46,7 @@ function tableRoutes(data) {
     const end = currentPage * pageSize;
 
     data.slice(start, end).forEach(function (item) {
-        let row = table.insertRow();
+        let row = tbody.insertRow();
         let cell1 = row.insertCell(0);
         let cell2 = row.insertCell(1);
         let cell3 = row.insertCell(2);
@@ -56,6 +56,7 @@ function tableRoutes(data) {
         let selectBtn = document.createElement('button');
         selectBtn.textContent = 'Выбрать';
         selectBtn.onclick = function () {
+            
             getTableDataGid(item.id);
             idRoute = item.id;
             console.log(idRoute);
@@ -116,6 +117,12 @@ function routesDropdown() {
         if (xhr.status === 200) {
             let data = JSON.parse(xhr.responseText);
             let items = [];
+            let notChoseItem = document.createElement('li');
+            let notChoseLink = document.createElement('a');
+            notChoseLink.textContent = "Не выбрано";
+            notChoseItem.appendChild(notChoseLink);
+            dropdown.appendChild(notChoseItem);
+
             data.forEach(function (item) {
                 let parts = item.mainObject.split('-').map(part => part.trim());
                 parts.forEach(part => {
