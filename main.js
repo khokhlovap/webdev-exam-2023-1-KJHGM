@@ -90,10 +90,10 @@ function tableRoutes(data) {
             document.getElementById('nameRoute').value = item.name;
             document.getElementById('showRoutes').value = item.name;
             getTableDataGid(item.id);
+            languageDropdown(item.id);
             idRoute = item.id;
             console.log(idRoute);
         };
-
         let cell4 = row.insertCell(3);
         cell4.appendChild(selectBtn);
     });
@@ -152,14 +152,14 @@ function routesDropdown() {
             let notSelectedOption = document.createElement('option');
             notSelectedOption.value = "";
             notSelectedOption.textContent = "Не выбрано";
-            selectRoutes.appendChild(notSelectedOption);
+            dropdown.appendChild(notSelectedOption);
             data.forEach(function (item) {
                 let parts = item.mainObject.split('- ').map(part => part.trim());
                 parts.forEach(part => {
                     let option = document.createElement('option');
                     option.value = item.id;
                     option.textContent = part;
-                    selectRoutes.appendChild(option);
+                    dropdown.appendChild(option);
                 });
             });
         } else {
@@ -213,7 +213,38 @@ function getTableDataGid(route_id) {
     xhr.send();
 }
 
+function languageDropdown(route_id) {
+    let dropdown = document.getElementById('selectLanguage');
+    let xhr = new XMLHttpRequest();
+    let url = `http://exam-2023-1-api.std-900.ist.mospolytech.ru/api/routes/${route_id}/guides?api_key=d8a17ec0-cc0e-4936-97d0-47b70d19ffc0`;    
+    xhr.open('GET', url);
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+            let data = JSON.parse(xhr.responseText);
+            dropdown.innerHTML = '';
+            let notSelectedOption = document.createElement('option');
+            notSelectedOption.value = "";
+            notSelectedOption.textContent = "Не выбрано";
+            dropdown.appendChild(notSelectedOption);
+            let languages = [];
+            data.forEach(function (item) {               
+                if (!languages.includes(item.language)) { 
+                    let option = document.createElement('option');
+                    option.textContent = item.language;
+                    dropdown.appendChild(option);
+                    languages.push(item.language); 
+                }
+            });
+        } else {
+            console.error('Не удалось получить данные: ' + xhr.status);
+        }
+    };
+    xhr.send();
+}
+
+
 window.onload = function () {
     getTableDataRoutes();
     routesDropdown();
+    languageDropdown();
 };
