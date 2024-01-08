@@ -29,7 +29,7 @@ function tableRoutes(data) {
         let previousBtn = document.createElement('button');
         previousBtn.textContent = 'Назад';
         previousBtn.classList.add('page-link');
-        previousBtn.id="scrollPrevious";
+        previousBtn.id = "scrollPrevious";
         previousBtn.addEventListener('click', function () {
             currentPage--;
             updateTable(data);
@@ -43,7 +43,7 @@ function tableRoutes(data) {
         let li = document.createElement('li');
         let btn = document.createElement('button');
         btn.classList.add('page-link');
-        btn.id="scrollBtn";
+        btn.id = "scrollBtn";
         btn.textContent = i;
         if (i === currentPage) {
             btn.disabled = true;
@@ -62,7 +62,7 @@ function tableRoutes(data) {
         let nextBtn = document.createElement('button');
         nextBtn.textContent = 'Вперед';
         nextBtn.classList.add('page-link');
-        nextBtn.id="scrollNext";
+        nextBtn.id = "scrollNext";
         nextBtn.addEventListener('click', function () {
             currentPage++;
             updateTable(data);
@@ -70,7 +70,7 @@ function tableRoutes(data) {
             scrollheader.scrollIntoView({ behavior: 'smooth', block: 'start' });
         });
         pagination.appendChild(nextBtn);
-        
+
     }
 
     const start = (currentPage - 1) * pageSize;
@@ -217,7 +217,7 @@ function languageDropdown(route_id) {
     let dropdown = document.getElementById('selectLanguage');
     let table = document.getElementById('gid-table');
     let xhr = new XMLHttpRequest();
-    let url = `http://exam-2023-1-api.std-900.ist.mospolytech.ru/api/routes/${route_id}/guides?api_key=d8a17ec0-cc0e-4936-97d0-47b70d19ffc0`;    
+    let url = `http://exam-2023-1-api.std-900.ist.mospolytech.ru/api/routes/${route_id}/guides?api_key=d8a17ec0-cc0e-4936-97d0-47b70d19ffc0`;
     xhr.open('GET', url);
     xhr.onload = function () {
         if (xhr.status === 200) {
@@ -228,29 +228,29 @@ function languageDropdown(route_id) {
             notSelectedOption.textContent = "Не выбрано";
             dropdown.appendChild(notSelectedOption);
             let languages = [];
-            data.forEach(function (item) {               
-                if (!languages.includes(item.language)) { 
+            data.forEach(function (item) {
+                if (!languages.includes(item.language)) {
                     let option = document.createElement('option');
                     option.textContent = item.language;
                     dropdown.appendChild(option);
-                    languages.push(item.language); 
+                    languages.push(item.language);
                 }
             });
-            
-            dropdown.addEventListener('change', function() {
+
+            dropdown.addEventListener('change', function () {
                 let selectedLanguage = dropdown.value;
-                Array.from(table.rows).forEach(function(row, index) {
+                Array.from(table.rows).forEach(function (row, index) {
                     if (index !== 0 && row.cells.length > 2) {
                         let cellValue = row.cells[2].textContent;
                         if (cellValue.toLowerCase() === selectedLanguage.toLowerCase()) {
-                            row.style.display = ''; 
+                            row.style.display = '';
                         } else {
-                            row.style.display = 'none'; 
+                            row.style.display = 'none';
                         }
                     }
                 });
             });
-            
+
         } else {
             console.error('Не удалось получить данные: ' + xhr.status);
         }
@@ -259,9 +259,9 @@ function languageDropdown(route_id) {
 }
 
 function workFilter() {
-    let from = document.getElementById('from'); 
-    let to = document.getElementById('to'); 
-    let table = document.getElementById('gid-table'); 
+    let from = document.getElementById('from');
+    let to = document.getElementById('to');
+    let table = document.getElementById('gid-table');
 
     from.addEventListener('input', filter);
     to.addEventListener('input', filter);
@@ -270,13 +270,13 @@ function workFilter() {
         let fromValue = parseInt(from.value);
         let toValue = parseInt(to.value);
 
-        Array.from(table.rows).forEach(function(row, index) {
-            if (index !== 0 && row.cells.length > 3) { 
+        Array.from(table.rows).forEach(function (row, index) {
+            if (index !== 0 && row.cells.length > 3) {
                 let cellValue = parseInt(row.cells[3].textContent);
                 if (!isNaN(fromValue) && !isNaN(toValue) && cellValue >= fromValue && cellValue <= toValue) {
-                    row.style.display = ''; 
+                    row.style.display = '';
                 } else {
-                    row.style.display = 'none'; 
+                    row.style.display = 'none';
                 }
             }
         });
