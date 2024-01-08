@@ -215,6 +215,7 @@ function getTableDataGid(route_id) {
 
 function languageDropdown(route_id) {
     let dropdown = document.getElementById('selectLanguage');
+    let table = document.getElementById('gid-table');
     let xhr = new XMLHttpRequest();
     let url = `http://exam-2023-1-api.std-900.ist.mospolytech.ru/api/routes/${route_id}/guides?api_key=d8a17ec0-cc0e-4936-97d0-47b70d19ffc0`;    
     xhr.open('GET', url);
@@ -235,6 +236,21 @@ function languageDropdown(route_id) {
                     languages.push(item.language); 
                 }
             });
+            
+            dropdown.addEventListener('change', function() {
+                let selectedLanguage = dropdown.value;
+                Array.from(table.rows).forEach(function(row, index) {
+                    if (index !== 0 && row.cells.length > 2) {
+                        let cellValue = row.cells[2].textContent;
+                        if (cellValue.toLowerCase() === selectedLanguage.toLowerCase()) {
+                            row.style.display = ''; 
+                        } else {
+                            row.style.display = 'none'; 
+                        }
+                    }
+                });
+            });
+            
         } else {
             console.error('Не удалось получить данные: ' + xhr.status);
         }
@@ -242,9 +258,34 @@ function languageDropdown(route_id) {
     xhr.send();
 }
 
+function workFilter() {
+    let from = document.getElementById('from'); 
+    let to = document.getElementById('to'); 
+    let table = document.getElementById('gid-table'); 
+
+    from.addEventListener('input', filter);
+    to.addEventListener('input', filter);
+
+    function filter() {
+        let fromValue = parseInt(from.value);
+        let toValue = parseInt(to.value);
+
+        Array.from(table.rows).forEach(function(row, index) {
+            if (index !== 0 && row.cells.length > 3) { 
+                let cellValue = parseInt(row.cells[3].textContent);
+                if (!isNaN(fromValue) && !isNaN(toValue) && cellValue >= fromValue && cellValue <= toValue) {
+                    row.style.display = ''; 
+                } else {
+                    row.style.display = 'none'; 
+                }
+            }
+        });
+    }
+}
 
 window.onload = function () {
     getTableDataRoutes();
     routesDropdown();
     languageDropdown();
+    workFilter();
 };
