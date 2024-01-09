@@ -2,7 +2,7 @@ const pageSize = 10;
 let currentPage = 1;
 const maxPages = 3;
 const tableHeader = document.getElementById('routes-table').getElementsByTagName('thead')[0].innerHTML;
-
+let idRoute;
 function tableRoutes(data) {
     let table = document.getElementById('routes-table');
     let tbody = document.getElementById('table-body-routes');
@@ -169,6 +169,7 @@ function routesDropdown() {
     xhr.send();
 }
 
+let idGid;
 function tableGid(data) {
     let table = document.getElementById('gid-table');
     data.forEach(function (item) {
@@ -191,6 +192,8 @@ function tableGid(data) {
         selectBtn2.textContent = 'Выбрать';
         selectBtn2.onclick = function () {
             document.getElementById('showNameGid').value = item.name;
+            idGid = item.id;
+            console.log(idGid);
         };
         let cell6 = row.insertCell(5);
         cell6.appendChild(selectBtn2);
@@ -287,9 +290,57 @@ function workFilter() {
     }
 }
 
-window.onload = function () {;
+let btn = document.getElementById('create');
+btn.addEventListener('click', function () {
+    let xhr = new XMLHttpRequest();
+    let url = 'http://exam-2023-1-api.std-900.ist.mospolytech.ru/api/orders?api_key=d8a17ec0-cc0e-4936-97d0-47b70d19ffc0';
+    let guide_id = idGid;
+    console.log(guide_id);
+    let route_id = idRoute;
+    console.log(route_id);
+    let date = document.getElementById('date').value;
+    console.log(date);
+    let time = document.getElementById('time').value + ':00';
+    console.log(time);
+    let duration = document.getElementById('list').value;
+    let persons = document.getElementById('person').value;
+    let price = document.getElementById('price').value;
+    let optionFirst = Number(document.getElementById('salePensioners').checked);
+    let optionSecond = Number(document.getElementById('saleSurdo').checked);
+    
+    let data = new FormData();
+    data.append("guide_id", guide_id);
+    data.append("route_id", route_id);
+    data.append("date", date);
+    data.append("id", 1);
+    data.append("student_id", 32);
+    data.append("time", time);
+    data.append("duration", duration);
+    data.append("persons", persons);
+    data.append("price", price);
+    data.append("optionFirst", optionFirst);
+    data.append("optionSecond", optionSecond);
+
+    
+    xhr.withCredentials = true;
+    
+    xhr.addEventListener("readystatechange", function() {
+      if(this.readyState === 4) {
+        console.log(this.responseText);
+      } 
+    });
+    
+    xhr.open("POST", url);
+    xhr.send(data);  
+    
+});
+
+
+window.onload = function () {
+    
     getTableDataRoutes();
     routesDropdown();
     languageDropdown();
     workFilter();
-    };
+   
+};
