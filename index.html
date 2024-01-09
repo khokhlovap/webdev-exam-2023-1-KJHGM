@@ -216,7 +216,7 @@
         <div class="modal-body">
           <div class="row mb-3">
             <div class="col-3">
-              <label class="form-label">Выбранный маршрут</label>
+              <label for="showRoutes" class="form-label">Выбранный маршрут</label>
             </div>
             <div class="col-9">
               <input type="text" class="form-control" value="Маршрут не выбран" id="showRoutes" disabled>
@@ -225,7 +225,7 @@
 
           <div class="row mb-3">
             <div class="col-3">
-              <label class="form-label">ФИО выбранного гида</label>
+              <label for="showNameGid" class="form-label">ФИО выбранного гида</label>
             </div>
             <div class="col-9">
               <input type="text" class="form-control" id="showNameGid" value="Гид не выбран" disabled>
@@ -234,7 +234,7 @@
 
           <div class="row mb-3">
             <div class="col-3">
-              <label class="form-label">Выберите дату</label>
+              <label for="date" class="form-label">Выберите дату</label>
             </div>
             <div class="col-9">
               <input type="date" class="form-control" id="date" name="data" required>
@@ -243,7 +243,7 @@
 
           <div class="row mb-3">
             <div class="col-3">
-              <label class="form-label">Выберите время</label>
+              <label for="time" class="form-label">Выберите время</label>
             </div>
             <div class="col-9">
               <input type="time" class="form-control" id="time" name="time" min="09:00" max="23:00" step="1800" value="12:00" required>
@@ -252,7 +252,7 @@
 
           <div class="row mb-3">
             <div class="col-3">
-              <label class="form-label">Длительность экскурсии (час)</label>
+              <label for="list" class="form-label">Длительность экскурсии (час)</label>
             </div>
             <div class="col-9">
               <select class="form-control" id="list" name="list">
@@ -265,7 +265,7 @@
 
           <div class="row mb-3">
             <div class="col-3">
-              <label class="form-label">Количество человек в группе</label>
+              <label for="person" class="form-label">Количество человек в группе</label>
             </div>
             <div class="col-9">
               <input type="number" class="form-control" id="person" name="person" min="1" max="20" required>
@@ -274,28 +274,28 @@
 
           <div class="row mb-3">
             <div class="col-3">
-              <label class="form-label">Использовать скидку для пенсионеров</label>
+              <label for="salePensioners" class="form-label">Использовать скидку для пенсионеров</label>
             </div>
             <div class="col-9">
-              <input type="checkbox" id="salePensioners" name="salePensioners" required>
+              <input class="form-check-input me-1" type="checkbox" id="salePensioners">
             </div>
           </div>
 
           <div class="row mb-3">
             <div class="col-3">
-              <label class="form-label">Сопровождение сурдопереводчика</label>
+              <label for="saleSurdo" class="form-label">Сопровождение сурдопереводчика</label>
             </div>
             <div class="col-9">
-              <input type="checkbox" id="saleSurdo" name="saleSurdo" required>
+              <input class="form-check-input me-1" type="checkbox" id="saleSurdo">
             </div>
           </div>
 
           <div class="row mb-3">
             <div class="col-3">
-              <label class="form-label">Расчет стоимости</label>
+              <label for="price" class="form-label">Расчет стоимости</label>
             </div>
             <div class="col-9">
-              <input type="text" class="form-control" id="price" name="price" disabled>
+              <input type="text" class="form-control" value="0" id="price" name="price" disabled>
             </div>
           </div>
         </div>

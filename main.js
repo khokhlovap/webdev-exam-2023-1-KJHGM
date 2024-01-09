@@ -182,7 +182,11 @@ function tableGid(data) {
         cell3.textContent = item.language;
         cell4.textContent = item.workExperience;
         cell5.textContent = item.pricePerHour;
-
+        let img = document.createElement('img');
+        img.src = '1.png';
+        img.width = 50;
+        img.height = 50;
+        cell1.appendChild(img);
         let selectBtn2 = document.createElement('button');
         selectBtn2.textContent = 'Выбрать';
         selectBtn2.onclick = function () {
@@ -283,9 +287,9 @@ function workFilter() {
     }
 }
 
-window.onload = function () {
+window.onload = function () {;
     getTableDataRoutes();
     routesDropdown();
     languageDropdown();
     workFilter();
-};
+    };
