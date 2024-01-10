@@ -33,7 +33,7 @@ function tableRoutes(data) {
         previousBtn.addEventListener('click', function () {
             currentPage--;
             updateTable(data);
-            let scrollheader = document.getElementById('list routers');
+            let scrollheader = document.getElementById('listRouters');
             scrollheader.scrollIntoView({ behavior: 'smooth', block: 'start' });
         });
         pagination.appendChild(previousBtn);
@@ -51,7 +51,7 @@ function tableRoutes(data) {
         btn.addEventListener('click', function () {
             currentPage = i;
             updateTable(data);
-            let scrollheader = document.getElementById('list routers');
+            let scrollheader = document.getElementById('listRouters');
             scrollheader.scrollIntoView({ behavior: 'smooth', block: 'start' });
         });
         li.appendChild(btn);
@@ -66,7 +66,7 @@ function tableRoutes(data) {
         nextBtn.addEventListener('click', function () {
             currentPage++;
             updateTable(data);
-            let scrollheader = document.getElementById('list routers');
+            let scrollheader = document.getElementById('listRouters');
             scrollheader.scrollIntoView({ behavior: 'smooth', block: 'start' });
         });
         pagination.appendChild(nextBtn);
@@ -312,8 +312,6 @@ btn.addEventListener('click', function () {
     data.append("guide_id", guide_id);
     data.append("route_id", route_id);
     data.append("date", date);
-    data.append("id", 1);
-    data.append("student_id", 32);
     data.append("time", time);
     data.append("duration", duration);
     data.append("persons", persons);
@@ -335,9 +333,16 @@ btn.addEventListener('click', function () {
     
 });
 
+const map = new mapgl.Map('myMapId', {
+    key: '0450e79e-4ef9-4dd5-a04b-269f4e8d15e6',
+    center:  [37.617874, 55.755713],
+    zoom: 13,
+});
+const marker = new mapgl.Marker(map, { /*это создание экземпляра маркера, который будет отображаться на карте*/
+                coordinates: [37.617874, 55.755713], /* Указывается объект map, на котором будет отображаться маркер, и координаты маркера*/
+            });
 
 window.onload = function () {
-    
     getTableDataRoutes();
     routesDropdown();
     languageDropdown();
