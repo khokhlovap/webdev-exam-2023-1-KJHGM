@@ -114,6 +114,7 @@ function getTableDataRoutes() {
             let data = xhr.response;
             tableRoutes(data);
         } else {
+            alert('Не удалось получить данные таблицы');
             console.error('Не удалось получить данные: ' + xhr.status);
         }
     };
@@ -163,6 +164,7 @@ function routesDropdown() {
                 });
             });
         } else {
+            alert('Не удалось получить данные об маршрутах');
             console.error('Не удалось получить данные: ' + xhr.status);
         }
     };
@@ -214,6 +216,7 @@ function getTableDataGid(route_id) {
             let data = xhr.response;
             tableGid(data);
         } else {
+            alert('Не удалось получить данные таблицы');
             console.error('Не удалось получить данные:  ' + xhr.status);
         }
     };
@@ -259,6 +262,7 @@ function languageDropdown(route_id) {
             });
 
         } else {
+            alert('Не удалось получить данные');
             console.error('Не удалось получить данные: ' + xhr.status);
         }
     };
@@ -270,9 +274,6 @@ function workFilter() {
     let to = document.getElementById('to');
     let table = document.getElementById('gid-table');
 
-    from.addEventListener('input', filter);
-    to.addEventListener('input', filter);
-
     function filter() {
         let fromValue = parseInt(from.value);
         let toValue = parseInt(to.value);
@@ -280,7 +281,8 @@ function workFilter() {
         Array.from(table.rows).forEach(function (row, index) {
             if (index !== 0 && row.cells.length > 3) {
                 let cellValue = parseInt(row.cells[3].textContent);
-                if (!isNaN(fromValue) && !isNaN(toValue) && cellValue >= fromValue && cellValue <= toValue) {
+                if (!isNaN(fromValue) && !isNaN(toValue) && cellValue >= 
+                fromValue && cellValue <= toValue) {
                     row.style.display = '';
                 } else {
                     row.style.display = 'none';
@@ -288,6 +290,8 @@ function workFilter() {
             }
         });
     }
+    from.addEventListener('input', filter);
+    to.addEventListener('input', filter);
 }
 
 let btn = document.getElementById('create');
@@ -307,7 +311,7 @@ btn.addEventListener('click', function () {
     let price = document.getElementById('price').value;
     let optionFirst = Number(document.getElementById('salePensioners').checked);
     let optionSecond = Number(document.getElementById('saleSurdo').checked);
-    
+
     let data = new FormData();
     data.append("guide_id", guide_id);
     data.append("route_id", route_id);
@@ -319,33 +323,42 @@ btn.addEventListener('click', function () {
     data.append("optionFirst", optionFirst);
     data.append("optionSecond", optionSecond);
 
-    
+
     xhr.withCredentials = true;
-    
-    xhr.addEventListener("readystatechange", function() {
-      if(this.readyState === 4) {
-        console.log(this.responseText);
-      } 
+
+    xhr.addEventListener("readystatechange", function () {
+        if (this.readyState === 4) {
+            alert('Заявка отправлена');
+            console.log(this.responseText);
+        }
     });
-    
+
     xhr.open("POST", url);
-    xhr.send(data);  
-    
+    xhr.send(data);
+
 });
 
 const map = new mapgl.Map('myMapId', {
     key: '0450e79e-4ef9-4dd5-a04b-269f4e8d15e6',
-    center:  [37.617874, 55.755713],
+    center: [37.617874, 55.755713],
     zoom: 13,
 });
-const marker = new mapgl.Marker(map, { /*это создание экземпляра маркера, который будет отображаться на карте*/
-                coordinates: [37.617874, 55.755713], /* Указывается объект map, на котором будет отображаться маркер, и координаты маркера*/
-            });
+const marker = new mapgl.Marker(map, {
+    coordinates: [37.617874, 55.755713],
+    label: {
+        text: "Офис",
+        offset: [0, -75],
+        image: {
+            url: 'https://docs.2gis.com/img/mapgl/tooltip.svg',
+            size: [100, 40],
+            padding: [10, 10, 20, 10],
+        },
+    }
+});
 
 window.onload = function () {
     getTableDataRoutes();
     routesDropdown();
     languageDropdown();
     workFilter();
-   
 };
