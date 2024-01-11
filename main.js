@@ -7,15 +7,12 @@ function tableRoutes(data) {
     let table = document.getElementById('routes-table');
     let tbody = document.getElementById('table-body-routes');
     tbody.innerHTML = '';
-
     table.getElementsByTagName('thead')[0].innerHTML = tableHeader;
     const totalPages = Math.ceil(data.length / pageSize);
     let pagination = document.getElementById('pagination');
     pagination.innerHTML = '';
-
     let startPage = 1;
     let endPage = totalPages;
-
     if (totalPages > maxPages) {
         startPage = Math.max(1, currentPage - Math.floor(maxPages / 2));
         endPage = Math.min(totalPages, startPage + maxPages - 1);
@@ -24,7 +21,6 @@ function tableRoutes(data) {
             startPage = endPage - maxPages + 1;
         }
     }
-
     if (currentPage > 1) {
         let previousBtn = document.createElement('button');
         previousBtn.textContent = 'Назад';
@@ -38,7 +34,6 @@ function tableRoutes(data) {
         });
         pagination.appendChild(previousBtn);
     }
-
     for (let i = startPage; i <= endPage; i++) {
         let li = document.createElement('li');
         let btn = document.createElement('button');
@@ -57,7 +52,6 @@ function tableRoutes(data) {
         li.appendChild(btn);
         pagination.appendChild(li);
     }
-
     if (currentPage < totalPages) {
         let nextBtn = document.createElement('button');
         nextBtn.textContent = 'Вперед';
@@ -70,12 +64,9 @@ function tableRoutes(data) {
             scrollheader.scrollIntoView({ behavior: 'smooth', block: 'start' });
         });
         pagination.appendChild(nextBtn);
-
     }
-
     const start = (currentPage - 1) * pageSize;
     const end = currentPage * pageSize;
-
     data.slice(start, end).forEach(function (item) {
         let row = tbody.insertRow();
         let cell1 = row.insertCell(0);
@@ -98,12 +89,9 @@ function tableRoutes(data) {
         cell4.appendChild(selectBtn);
     });
 }
-
 function updateTable(data) {
     tableRoutes(data);
-
 }
-
 function getTableDataRoutes() {
     let xhr = new XMLHttpRequest();
     let url = 'http://exam-2023-1-api.std-900.ist.mospolytech.ru/api/routes?api_key=d8a17ec0-cc0e-4936-97d0-47b70d19ffc0';
@@ -246,13 +234,13 @@ function languageDropdown(route_id) {
                     languages.push(item.language);
                 }
             });
-
             dropdown.addEventListener('change', function () {
                 let selectedLanguage = dropdown.value;
                 Array.from(table.rows).forEach(function (row, index) {
                     if (index !== 0 && row.cells.length > 2) {
                         let cellValue = row.cells[2].textContent;
-                        if (cellValue.toLowerCase() === selectedLanguage.toLowerCase()) {
+                        if (cellValue.toLowerCase() ===
+                            selectedLanguage.toLowerCase()) {
                             row.style.display = '';
                         } else {
                             row.style.display = 'none';
@@ -268,7 +256,6 @@ function languageDropdown(route_id) {
     };
     xhr.send();
 }
-
 function workFilter() {
     let from = document.getElementById('from');
     let to = document.getElementById('to');
@@ -281,8 +268,8 @@ function workFilter() {
         Array.from(table.rows).forEach(function (row, index) {
             if (index !== 0 && row.cells.length > 3) {
                 let cellValue = parseInt(row.cells[3].textContent);
-                if (!isNaN(fromValue) && !isNaN(toValue) && cellValue >= 
-                fromValue && cellValue <= toValue) {
+                if (!isNaN(fromValue) && !isNaN(toValue) && cellValue >=
+                    fromValue && cellValue <= toValue) {
                     row.style.display = '';
                 } else {
                     row.style.display = 'none';
@@ -293,7 +280,6 @@ function workFilter() {
     from.addEventListener('input', filter);
     to.addEventListener('input', filter);
 }
-
 let btn = document.getElementById('create');
 btn.addEventListener('click', function () {
     let xhr = new XMLHttpRequest();
@@ -311,7 +297,6 @@ btn.addEventListener('click', function () {
     let price = document.getElementById('price').value;
     let optionFirst = Number(document.getElementById('salePensioners').checked);
     let optionSecond = Number(document.getElementById('saleSurdo').checked);
-
     let data = new FormData();
     data.append("guide_id", guide_id);
     data.append("route_id", route_id);
@@ -322,22 +307,16 @@ btn.addEventListener('click', function () {
     data.append("price", price);
     data.append("optionFirst", optionFirst);
     data.append("optionSecond", optionSecond);
-
-
     xhr.withCredentials = true;
-
     xhr.addEventListener("readystatechange", function () {
         if (this.readyState === 4) {
             alert('Заявка отправлена');
             console.log(this.responseText);
         }
     });
-
     xhr.open("POST", url);
     xhr.send(data);
-
 });
-
 const map = new mapgl.Map('myMapId', {
     key: '0450e79e-4ef9-4dd5-a04b-269f4e8d15e6',
     center: [37.617874, 55.755713],
@@ -346,13 +325,8 @@ const map = new mapgl.Map('myMapId', {
 const marker = new mapgl.Marker(map, {
     coordinates: [37.617874, 55.755713],
     label: {
-        text: "Офис",
+        text: "Начальная точка",
         offset: [0, -75],
-        image: {
-            url: 'https://docs.2gis.com/img/mapgl/tooltip.svg',
-            size: [100, 40],
-            padding: [10, 10, 20, 10],
-        },
     }
 });
 

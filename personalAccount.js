@@ -32,20 +32,21 @@ function displayData(start, end) {
             let cell2 = row.insertCell(1);
             let cell3 = row.insertCell(2);
             let cell4 = row.insertCell(3);
-
-            let matchingData = dateCostData.find(item => item.id === nameData[i].route_id);
+            let cell5 = row.insertCell(4);
+            let matchingData = dateCostData.find(item => item.id ===
+                nameData[i].route_id);
             if (matchingData) {
                 cell1.innerHTML = i + 1;
                 cell2.innerHTML = matchingData.name;
                 cell3.innerHTML = nameData[i].date;
                 cell4.innerHTML = nameData[i].price;
+                cell5.innerHTML = '<i class="bi bi-eye"></i> <i class="bi bi-pencil-fill"></i> <i class="bi bi-trash-fill"></i>';
             } else {
                 console.error('Не удалось получить данные: ' + xhr.status);
             }
         }
     }
 }
-
 function prevPage() {
     if (currentPage > 1) {
         currentPage--;
@@ -54,7 +55,6 @@ function prevPage() {
         displayData(start, end);
     }
 }
-
 function nextPage() {
     if (currentPage < Math.ceil(nameData.length / recordsPerPage)) {
         currentPage++;
@@ -63,11 +63,10 @@ function nextPage() {
         displayData(start, end);
     }
 }
-
 fetchData('http://exam-2023-1-api.std-900.ist.mospolytech.ru/api/orders?api_key=d8a17ec0-cc0e-4936-97d0-47b70d19ffc0', function (data) {
     nameData = data;
     fetchData('http://exam-2023-1-api.std-900.ist.mospolytech.ru/api/routes?api_key=d8a17ec0-cc0e-4936-97d0-47b70d19ffc0', function (data) {
         dateCostData = data;
-        displayData(0, recordsPerPage); 
+        displayData(0, recordsPerPage);
     });
 });
