@@ -263,7 +263,7 @@ function languageDropdown(route_id) {
             console.error('Не удалось получить данные: ' + xhr.status);
         }
     };
-    xhr.send();
+    xhr.send(data);
 }
 
 function workFilter() {
@@ -345,6 +345,6 @@ const marker = new mapgl.Marker(map, {
 window.onload = function () {
     getTableDataRoutes();
     routesDropdown();
-    languageDropdown();
+    languageDropdown(data);
     workFilter();
 };
