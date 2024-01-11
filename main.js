@@ -1,7 +1,8 @@
 const pageSize = 10;
 let currentPage = 1;
 const maxPages = 3;
-const tableHeader = document.getElementById('routes-table').getElementsByTagName('thead')[0].innerHTML;
+const tableHeaderId = document.getElementById('routes-table');
+const tableHeader = tableHeaderId.getElementsByTagName('thead')[0].innerHTML;
 let idRoute;
 function tableRoutes(data) {
     let table = document.getElementById('routes-table');
@@ -89,12 +90,15 @@ function tableRoutes(data) {
         cell4.appendChild(selectBtn);
     });
 }
+
 function updateTable(data) {
     tableRoutes(data);
 }
+
 function getTableDataRoutes() {
     let xhr = new XMLHttpRequest();
-    let url = 'http://exam-2023-1-api.std-900.ist.mospolytech.ru/api/routes?api_key=d8a17ec0-cc0e-4936-97d0-47b70d19ffc0';
+    let url = 'http://exam-2023-1-api.std-900.ist.mospolytech.ru/api/routes?' +
+    'api_key=d8a17ec0-cc0e-4936-97d0-47b70d19ffc0';
     xhr.open('GET', url);
     xhr.responseType = 'json';
     xhr.onload = function () {
@@ -132,7 +136,8 @@ document.getElementById('button-search').addEventListener('click', function () {
 function routesDropdown() {
     let dropdown = document.getElementById('selectRoutes');
     let xhr = new XMLHttpRequest();
-    let url = 'http://exam-2023-1-api.std-900.ist.mospolytech.ru/api/routes?api_key=d8a17ec0-cc0e-4936-97d0-47b70d19ffc0';
+    let url = 'http://exam-2023-1-api.std-900.ist.mospolytech.ru/api/routes?' +
+    'api_key=d8a17ec0-cc0e-4936-97d0-47b70d19ffc0';
     xhr.open('GET', url);
     xhr.onload = function () {
         if (xhr.status === 200) {
@@ -143,7 +148,8 @@ function routesDropdown() {
             notSelectedOption.textContent = "Не выбрано";
             dropdown.appendChild(notSelectedOption);
             data.forEach(function (item) {
-                let parts = item.mainObject.split('- ').map(part => part.trim());
+                let parts = item.mainObject
+                    .split('- ').map(part => part.trim());
                 parts.forEach(part => {
                     let option = document.createElement('option');
                     option.value = item.id;
@@ -190,13 +196,15 @@ function tableGid(data) {
     });
 }
 
-const tableHeader2 = document.getElementById('gid-table').getElementsByTagName('thead')[0].innerHTML;
+const tableHeaderId2 = document.getElementById('gid-table');
+const tableHeader2 = tableHeaderId2.getElementsByTagName('thead')[0].innerHTML;
 function getTableDataGid(route_id) {
     let table = document.getElementById('gid-table');
     table.getElementsByTagName('thead')[0].innerHTML = tableHeader2;
 
     let xhr = new XMLHttpRequest();
-    let url = `http://exam-2023-1-api.std-900.ist.mospolytech.ru/api/routes/${route_id}/guides?api_key=d8a17ec0-cc0e-4936-97d0-47b70d19ffc0`;
+    let url = `http://exam-2023-1-api.std-900.ist.mospolytech.ru/api` +
+    `/routes/${route_id}/guides?api_key=d8a17ec0-cc0e-4936-97d0-47b70d19ffc0`;
     xhr.open('GET', url);
     xhr.responseType = 'json';
     xhr.onload = function () {
@@ -215,7 +223,8 @@ function languageDropdown(route_id) {
     let dropdown = document.getElementById('selectLanguage');
     let table = document.getElementById('gid-table');
     let xhr = new XMLHttpRequest();
-    let url = `http://exam-2023-1-api.std-900.ist.mospolytech.ru/api/routes/${route_id}/guides?api_key=d8a17ec0-cc0e-4936-97d0-47b70d19ffc0`;
+    let url = `http://exam-2023-1-api.std-900.ist.mospolytech.ru/api` + 
+    `/routes/${route_id}/guides?api_key=d8a17ec0-cc0e-4936-97d0-47b70d19ffc0`;
     xhr.open('GET', url);
     xhr.onload = function () {
         if (xhr.status === 200) {
@@ -254,8 +263,9 @@ function languageDropdown(route_id) {
             console.error('Не удалось получить данные: ' + xhr.status);
         }
     };
-    xhr.send(data);
+    xhr.send();
 }
+
 function workFilter() {
     let from = document.getElementById('from');
     let to = document.getElementById('to');
@@ -280,10 +290,12 @@ function workFilter() {
     from.addEventListener('input', filter);
     to.addEventListener('input', filter);
 }
+
 let btn = document.getElementById('create');
 btn.addEventListener('click', function () {
     let xhr = new XMLHttpRequest();
-    let url = 'http://exam-2023-1-api.std-900.ist.mospolytech.ru/api/orders?api_key=d8a17ec0-cc0e-4936-97d0-47b70d19ffc0';
+    let url = 'http://exam-2023-1-api.std-900.ist.mospolytech.ru/api/orders?' + 
+    'api_key=d8a17ec0-cc0e-4936-97d0-47b70d19ffc0';
     let guide_id = idGid;
     console.log(guide_id);
     let route_id = idRoute;

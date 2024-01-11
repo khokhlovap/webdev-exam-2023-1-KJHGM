@@ -19,7 +19,8 @@ function fetchData(url, callback) {
     xhr.open('GET', url);
     xhr.send();
 };
-const tableHeader = document.getElementById('application-table').getElementsByTagName('thead')[0].innerHTML;
+const tableHeaderId = document.getElementById('application-table');
+const tableHeader = tableHeaderId.getElementsByTagName('thead')[0].innerHTML;
 function displayData(start, end) {
     let table = document.getElementById('application-table');
     let tbody = document.getElementById('table-body-application');
@@ -40,7 +41,11 @@ function displayData(start, end) {
                 cell2.innerHTML = matchingData.name;
                 cell3.innerHTML = nameData[i].date;
                 cell4.innerHTML = nameData[i].price;
-                cell5.innerHTML = '<i class="bi bi-eye"></i> <i class="bi bi-pencil-fill"></i> <i class="bi bi-trash-fill"></i>';
+                cell5.innerHTML = `
+                <i class="bi bi-eye"></i> 
+                <i class="bi bi-pencil-fill">
+                </i> <i class="bi bi-trash-fill"></i>
+                `;
             } else {
                 console.error('Не удалось получить данные: ' + xhr.status);
             }
@@ -63,10 +68,18 @@ function nextPage() {
         displayData(start, end);
     }
 }
-fetchData('http://exam-2023-1-api.std-900.ist.mospolytech.ru/api/orders?api_key=d8a17ec0-cc0e-4936-97d0-47b70d19ffc0', function (data) {
-    nameData = data;
-    fetchData('http://exam-2023-1-api.std-900.ist.mospolytech.ru/api/routes?api_key=d8a17ec0-cc0e-4936-97d0-47b70d19ffc0', function (data) {
-        dateCostData = data;
-        displayData(0, recordsPerPage);
+fetchData(
+    'http://exam-2023-1-api.std-900.ist.mospolytech.ru/api/orders' +
+    '?api_key=d8a17ec0-cc0e-4936-97d0-47b70d19ffc0',
+    function (data) {
+        nameData = data;
+        fetchData(
+            'http://exam-2023-1-api.std-900.ist.mospolytech.ru/api/routes?' +
+            'api_key=d8a17ec0-cc0e-4936-97d0-47b70d19ffc0', function (data) {
+                dateCostData = data;
+                displayData(0, recordsPerPage);
+            });
     });
-});
+
+document.getElementById('prevBtn').onclick = prevPage;
+document.getElementById('nextBtn').onclick = nextPage;
