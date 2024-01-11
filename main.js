@@ -254,7 +254,7 @@ function languageDropdown(route_id) {
             console.error('Не удалось получить данные: ' + xhr.status);
         }
     };
-    xhr.send();
+    xhr.send(data);
 }
 function workFilter() {
     let from = document.getElementById('from');
